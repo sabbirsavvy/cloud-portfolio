@@ -22,3 +22,13 @@ Live at: https://sabbirahmed.uk
   - HTTP/2 enabled, global edge distribution
 - Route 53 hosted zone with alias A-records for apex and www
 - No public access to S3; all reads go through CloudFront
+
+## Phase B — Serverless backend ✅
+
+Visitor counter implemented as:
+- DynamoDB table (`visitor-count`) — single item, atomic increment via `ADD` UpdateExpression
+- Lambda function (`visitor-counter`, Python 3.14) — boto3 against DynamoDB
+- API Gateway HTTP API — `GET /visit`, CORS configured for browser clients
+- IAM execution role scoped to `dynamodb:GetItem` and `dynamodb:UpdateItem` on the specific table ARN (least privilege)
+
+Client-side `fetch` from `index.html` updates the count on page load.
