@@ -11,4 +11,14 @@ CI/CD: GitHub Actions deploying on push to `main` via OIDC federation (no long-l
 
 ## Status
 
-Work in progress. See commits for build log.
+## Phase A — Static site infrastructure ✅
+
+Live at: https://sabbirahmed.uk
+
+- Private S3 bucket holding HTML/CSS/JS assets
+- CloudFront distribution with Origin Access Control (OAC) reading from S3
+  - HTTPS via ACM certificate (us-east-1)
+  - TLSv1.2_2021 security policy
+  - HTTP/2 enabled, global edge distribution
+- Route 53 hosted zone with alias A-records for apex and www
+- No public access to S3; all reads go through CloudFront
