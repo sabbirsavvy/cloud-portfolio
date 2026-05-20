@@ -29,8 +29,22 @@
 
     <footer>
         <p>
+        Visitors: <span id="visitor-count">…</span></p>
+        <p>
         Built on AWS - S3, CloudFront, Lambda, DynamoDB.
         </p>
     </footer>
+
+    <script>
+  fetch('https://730gg9guw8.execute-api.eu-west-2.amazonaws.com/visit')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('visitor-count').textContent = data.count;
+    })
+    .catch(error => {
+      document.getElementById('visitor-count').textContent = '—';
+      console.error('Counter failed:', error);
+    });
+</script>
 </body>  
 </html>
