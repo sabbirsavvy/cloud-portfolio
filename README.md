@@ -45,3 +45,19 @@ Push to `main` deploys the site automatically:
 6. Site is live ~60-90 seconds after `git push`
 
 End-to-end: editing `index.html` locally → live at https://sabbirahmed.uk in under two minutes, no manual steps, no credentials in repo secrets.
+
+
+## Live Operations Dashboard
+
+Public CloudWatch dashboard: [https://cloudwatch.amazonaws.com/dashboard.html?dashboard=sponsorship-tracker&context=eyJSIjoidXMtZWFzdC0xIiwiRCI6ImN3LWRiLTAwOTA3NTU3NDIyMCIsIlUiOiJ1cy1lYXN0LTFfMUVUWmNBbWFGIiwiQyI6IjU0ZnY5bG1vOHUyZ2tlaXI2ZzliYmtoYW8xIiwiSSI6InVzLWVhc3QtMTo4YTU0YjE1Yi1jYjZiLTRhOGEtYTgzYi1kMWFlMDdlNGMzNjUiLCJNIjoiUHVibGljIn0%3D]
+
+Metrics chosen to answer six questions at a glance:
+
+- **Is anyone visiting?** CloudFront request count.
+- **Are visitors getting errors?** CloudFront total error rate.
+- **Is the API working?** API Gateway 2xx/4xx/5xx response mix.
+- **Is the Lambda healthy?** Invocations, errors, average duration.
+- **Is DynamoDB happy and within capacity?** Consumed read/write capacity units.
+- **Is anything starting to cost real money?** Estimated charges in USD.
+
+The dashboard is the answer to "how would you operate this if it had real users?"
