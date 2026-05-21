@@ -14,7 +14,7 @@
         <p class="kicker">Sponsorship Tracker</p>
         <h1>UK cloud job hunt, <span class="accent">in public</span>.</h1>
         <p class="lead">
-          I'm Sabbir — an international student in the UK looking for a sponsored junior cloud role.
+          I'm Sabbir, an international student in the UK looking for a sponsored junior cloud role.
           This site is a live, transparent record of every application, every certification, every project.
           Built so other international students can see what's actually working.
         </p>
@@ -34,7 +34,7 @@
         <p class="muted">
           This site itself is the project. Static assets served from a private S3 bucket via CloudFront
           (Origin Access Control), with a serverless visitor counter behind API Gateway → Lambda → DynamoDB.
-          Deployments run via GitHub Actions using OIDC federation — no long-lived AWS keys.
+          Deployments run via GitHub Actions using OIDC federation, no long-lived AWS keys.
         </p>
         <div class="diagram-wrap">
           <img src="architecture.svg" alt="Architecture diagram: browser to CloudFront to private S3 bucket; browser to API Gateway to Lambda to DynamoDB; GitHub Actions pushing via OIDC to S3 and CloudFront." />
@@ -164,7 +164,7 @@
           Visitors: <span id="visitor-count" class="accent mono">…</span>
         </p>
         <p class="muted small">
-          Built on AWS — S3, CloudFront, Route 53, ACM, Lambda, API Gateway, DynamoDB.
+          Built on AWS S3, CloudFront, Route 53, ACM, Lambda, API Gateway, DynamoDB.
           Deployed via GitHub Actions with OIDC federation.
         </p>
       </footer>
