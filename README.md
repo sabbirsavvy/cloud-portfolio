@@ -62,3 +62,16 @@ Metrics chosen to answer six questions at a glance:
 - **Is anything starting to cost real money?** Estimated charges in USD.
 
 The dashboard is the answer to "how would you operate this if it had real users?"
+
+
+## Phase D — Contact form ✅
+
+A working contact form on the site, end-to-end via AWS:
+
+- HTML form → JavaScript `fetch` POSTs to API Gateway
+- API Gateway `POST /contact` → second Lambda (`contact-form-handler`, Python 3.14)
+- Lambda validates input (length limits, required fields, basic email format), then calls SES `SendEmail`
+- Email arrives in my inbox, with `Reply-To` set to the form-filler's address so direct replies work
+- Lambda IAM role scoped to `ses:SendEmail` on the specific verified identity ARN — not the whole account
+
+SES is in sandbox mode (200 emails/day cap, recipients must be verified). For this use case the only recipient is me, so sandbox is sufficient — no production-access request needed. A real product with arbitrary recipients would need that step.
