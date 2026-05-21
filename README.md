@@ -32,3 +32,16 @@ Visitor counter implemented as:
 - IAM execution role scoped to `dynamodb:GetItem` and `dynamodb:UpdateItem` on the specific table ARN (least privilege)
 
 Client-side `fetch` from `index.html` updates the count on page load.
+
+## Phase C — Continuous deployment ✅
+
+Push to `main` deploys the site automatically:
+
+1. GitHub Actions workflow triggers on push
+2. Workflow assumes an AWS IAM role via **OIDC federation** — no long-lived AWS access keys stored in GitHub
+3. Role's trust policy is scoped to `repo:sabbirsavvy/cloud-portfolio:ref:refs/heads/main` — only main branch on this repo can assume it
+4. Permissions policy scoped to `s3:PutObject`/`DeleteObject`/`ListBucket`/`GetObject` on the one bucket + `cloudfront:CreateInvalidation` on the one distribution
+5. Workflow syncs files to S3 and issues a CloudFront invalidation
+6. Site is live ~60-90 seconds after `git push`
+
+End-to-end: editing `index.html` locally → live at https://sabbirahmed.uk in under two minutes, no manual steps, no credentials in repo secrets.
