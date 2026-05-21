@@ -159,6 +159,31 @@
   </p>
 </section>
 
+<section class="block">
+  <h2>Get in touch</h2>
+  <p class="muted">
+    Hiring for a junior cloud role? Want to compare notes on UK sponsorship?
+    Drop me a message and I'll reply by email.
+  </p>
+
+  <form id="contact-form" class="contact-form" novalidate>
+    <label>
+      <span>Name</span>
+      <input type="text" name="name" required maxlength="100" />
+    </label>
+    <label>
+      <span>Email</span>
+      <input type="email" name="email" required maxlength="200" />
+    </label>
+    <label>
+      <span>Message</span>
+      <textarea name="message" required maxlength="5000" rows="5"></textarea>
+    </label>
+    <button type="submit">Send message</button>
+    <p id="contact-status" class="contact-status muted small" aria-live="polite"></p>
+  </form>
+</section>
+
       <footer>
         <p class="counter-line">
           Visitors: <span id="visitor-count" class="accent mono">…</span>
@@ -196,5 +221,54 @@
           console.error('Counter failed:', error);
         });
     </script>
+    <script>
+  // Contact form submission
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const status = document.getElementById('contact-status');
+    const button = form.querySelector('button');
+
+    const payload = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      message: form.message.value.trim()
+    };
+
+    if (!payload.name || !payload.email || !payload.message) {
+      status.textContent = 'Please fill in all fields.';
+      status.style.color = '#f87171';
+      return;
+    }
+
+    button.disabled = true;
+    status.textContent = 'Sending…';
+    status.style.color = '';
+
+    try {
+      const res = await fetch('https://730gg9guw8.execute-api.eu-west-2.amazonaws.com/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        status.textContent = 'Message sent. I\'ll reply to you by email.';
+        status.style.color = '#4ade80';
+        form.reset();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        status.textContent = data.error || 'Failed to send. Please try again later.';
+        status.style.color = '#f87171';
+      }
+    } catch (err) {
+      console.error('Contact form failed:', err);
+      status.textContent = 'Network error. Please try again later.';
+      status.style.color = '#f87171';
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>
   </body>
 </html>
