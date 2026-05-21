@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" role="img" aria-label="AWS architecture diagram">
+  <defs>
+    <style>
+      .bg { fill: transparent; }
+      .node { fill: #1f1f23; stroke: #3f3f46; stroke-width: 1.5; }
+      .node-accent { fill: #1f1f23; stroke: #60a5fa; stroke-width: 1.5; }
+      .label { fill: #fafafa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle; }
+      .sublabel { fill: #a1a1aa; font-family: ui-monospace, "SF Mono", "JetBrains Mono", monospace; font-size: 10px; text-anchor: middle; letter-spacing: 0.05em; }
+      .arrow { fill: none; stroke: #52525b; stroke-width: 1.5; }
+      .arrow-accent { fill: none; stroke: #60a5fa; stroke-width: 1.5; }
+      .arrow-label { fill: #71717a; font-family: ui-monospace, "SF Mono", "JetBrains Mono", monospace; font-size: 10px; text-anchor: middle; }
+      .section-label { fill: #71717a; font-family: ui-monospace, "SF Mono", "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+    </style>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#52525b"/>
+    </marker>
+    <marker id="arrowhead-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#60a5fa"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="720" height="460"/>
+
+  <!-- Section labels -->
+  <text x="20" y="30" class="section-label">// VIEWER PATH</text>
+  <text x="20" y="260" class="section-label">// DEPLOYMENT PATH</text>
+
+  <!-- Browser -->
+  <rect class="node-accent" x="40" y="80" width="120" height="60" rx="8"/>
+  <text x="100" y="108" class="label">Browser</text>
+  <text x="100" y="125" class="sublabel">sabbirahmed.uk</text>
+
+  <!-- CloudFront -->
+  <rect class="node" x="220" y="50" width="140" height="60" rx="8"/>
+  <text x="290" y="78" class="label">CloudFront</text>
+  <text x="290" y="95" class="sublabel">CDN + HTTPS (OAC)</text>
+
+  <!-- S3 -->
+  <rect class="node" x="420" y="50" width="140" height="60" rx="8"/>
+  <text x="490" y="78" class="label">S3 (private)</text>
+  <text x="490" y="95" class="sublabel">static files</text>
+
+  <!-- API Gateway -->
+  <rect class="node" x="220" y="140" width="140" height="60" rx="8"/>
+  <text x="290" y="168" class="label">API Gateway</text>
+  <text x="290" y="185" class="sublabel">GET /visit</text>
+
+  <!-- Lambda -->
+  <rect class="node" x="420" y="140" width="140" height="60" rx="8"/>
+  <text x="490" y="168" class="label">Lambda</text>
+  <text x="490" y="185" class="sublabel">Python 3.14</text>
+
+  <!-- DynamoDB -->
+  <rect class="node" x="600" y="140" width="100" height="60" rx="8"/>
+  <text x="650" y="168" class="label">DynamoDB</text>
+  <text x="650" y="185" class="sublabel">visitor-count</text>
+
+  <!-- Route 53 (label under browser) -->
+  <text x="100" y="160" class="sublabel">via Route 53 DNS</text>
+
+  <!-- Arrows: viewer path -->
+  <!-- Browser → CloudFront -->
+  <path class="arrow-accent" d="M 160 100 L 215 80" marker-end="url(#arrowhead-accent)"/>
+  <text x="190" y="75" class="arrow-label">HTTPS</text>
+
+  <!-- CloudFront → S3 -->
+  <path class="arrow" d="M 360 80 L 415 80" marker-end="url(#arrowhead)"/>
+  <text x="388" y="72" class="arrow-label">signed</text>
+
+  <!-- Browser → API Gateway -->
+  <path class="arrow-accent" d="M 160 120 L 215 165" marker-end="url(#arrowhead-accent)"/>
+  <text x="180" y="155" class="arrow-label">fetch</text>
+
+  <!-- API Gateway → Lambda -->
+  <path class="arrow" d="M 360 170 L 415 170" marker-end="url(#arrowhead)"/>
+
+  <!-- Lambda → DynamoDB -->
+  <path class="arrow" d="M 560 170 L 595 170" marker-end="url(#arrowhead)"/>
+  <text x="578" y="162" class="arrow-label">ADD</text>
+
+  <!-- Divider -->
+  <line x1="20" y1="240" x2="700" y2="240" stroke="#27272a" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- GitHub -->
+  <rect class="node-accent" x="40" y="290" width="120" height="60" rx="8"/>
+  <text x="100" y="318" class="label">GitHub Actions</text>
+  <text x="100" y="335" class="sublabel">on push to main</text>
+
+  <!-- IAM Role -->
+  <rect class="node" x="220" y="290" width="140" height="60" rx="8"/>
+  <text x="290" y="318" class="label">IAM Role (OIDC)</text>
+  <text x="290" y="335" class="sublabel">no static keys</text>
+
+  <!-- S3 (deploy target) -->
+  <rect class="node" x="420" y="260" width="140" height="40" rx="8"/>
+  <text x="490" y="285" class="label">S3 sync</text>
+
+  <!-- CloudFront invalidation -->
+  <rect class="node" x="420" y="320" width="140" height="40" rx="8"/>
+  <text x="490" y="345" class="label">CloudFront invalidate</text>
+
+  <!-- Arrows: deploy path -->
+  <path class="arrow-accent" d="M 160 320 L 215 320" marker-end="url(#arrowhead-accent)"/>
+  <text x="188" y="312" class="arrow-label">JWT</text>
+
+  <path class="arrow" d="M 360 310 L 415 285" marker-end="url(#arrowhead)"/>
+  <path class="arrow" d="M 360 330 L 415 340" marker-end="url(#arrowhead)"/>
+
+  <!-- Bottom note -->
+  <text x="360" y="420" class="sublabel">All resources in eu-west-2 except ACM cert (us-east-1, CloudFront requirement)</text>
+
+</svg>

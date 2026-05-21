@@ -1,50 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <title>Sabbir's Sponsorship Tracker</title>
-    <link rel="stylesheet" href="style.css"> 
-</head>
-<body>  
-    <h1>
-        UK Cloud Job Hunt - Sponsorship Tracker
-    </h1>
-    <p>
-        Hi, I'm Sabbir. I'm tracking my UK cloud job search publicly so that other international students can see what works and what doesn't.
-    </p>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabbir Ahmed — UK Cloud Job Hunt</title>
+    <meta name="description" content="A public, live record of my UK cloud engineering job hunt. Tracked transparently so other international students can see what works.">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="container">
 
-    <h2>
-        Applications
-    </h2>
-    <p>
-        Coming Soon!
-    </p>
-
-    <h2>
-        Certifications
-    </h2>
-    <p>
-        Coming Soon!
-    </p>
-
-    <footer>
-        <p>
-        Visitors: <span id="visitor-count">…</span></p>
-        <p>
-        Built on AWS - S3, CloudFront, Lambda, DynamoDB.
+      <header class="hero">
+        <p class="kicker">Sponsorship Tracker</p>
+        <h1>UK cloud job hunt, <span class="accent">in public</span>.</h1>
+        <p class="lead">
+          I'm Sabbir — an international student in the UK looking for a sponsored junior cloud role.
+          This site is a live, transparent record of every application, every certification, every project.
+          Built so other international students can see what's actually working.
         </p>
-    </footer>
+
+        <div class="status-strip" aria-label="System status">
+          <span class="dot ok"></span> S3
+          <span class="dot ok"></span> CloudFront
+          <span class="dot ok"></span> Lambda
+          <span class="dot ok"></span> DynamoDB
+          <span class="dot ok"></span> API Gateway
+          <span class="dot ok"></span> Route 53
+        </div>
+      </header>
+
+      <section class="block">
+        <h2>Architecture</h2>
+        <p class="muted">
+          This site itself is the project. Static assets served from a private S3 bucket via CloudFront
+          (Origin Access Control), with a serverless visitor counter behind API Gateway → Lambda → DynamoDB.
+          Deployments run via GitHub Actions using OIDC federation — no long-lived AWS keys.
+        </p>
+        <div class="diagram-wrap">
+          <img src="architecture.svg" alt="Architecture diagram: browser to CloudFront to private S3 bucket; browser to API Gateway to Lambda to DynamoDB; GitHub Actions pushing via OIDC to S3 and CloudFront." />
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Applications</h2>
+        <p class="muted small">
+          Illustrative placeholder data while I prepare for the real application round.
+          Will be replaced with live entries as I start applying.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Sponsors</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Monzo</td>
+                <td>Junior Cloud Engineer</td>
+                <td><span class="badge yes">Yes</span></td>
+                <td><span class="badge pending">Applied</span></td>
+              </tr>
+              <tr>
+                <td>Octopus Energy</td>
+                <td>Platform Engineer (Junior)</td>
+                <td><span class="badge yes">Yes</span></td>
+                <td><span class="badge progress">Phone screen</span></td>
+              </tr>
+              <tr>
+                <td>Capgemini</td>
+                <td>Associate Cloud Consultant</td>
+                <td><span class="badge yes">Yes</span></td>
+                <td><span class="badge pending">Applied</span></td>
+              </tr>
+              <tr>
+                <td>ARM</td>
+                <td>Graduate DevOps Engineer</td>
+                <td><span class="badge yes">Yes</span></td>
+                <td><span class="badge fail">Rejected</span></td>
+              </tr>
+              <tr>
+                <td>Starling Bank</td>
+                <td>Junior SRE</td>
+                <td><span class="badge yes">Yes</span></td>
+                <td><span class="badge pending">Applied</span></td>
+              </tr>
+              <tr>
+                <td>AWS UK</td>
+                <td>Cloud Support Engineer</td>
+                <td><span class="badge yes">Yes</span></td>
+                <td><span class="badge progress">Tech interview</span></td>
+              </tr>
+              <tr>
+                <td>Deloitte</td>
+                <td>Cloud Engineering Analyst</td>
+                <td><span class="badge yes">Yes</span></td>
+                <td><span class="badge pending">Applied</span></td>
+              </tr>
+              <tr>
+                <td>Cloudflare</td>
+                <td>Solutions Engineer (Grad)</td>
+                <td><span class="badge no">No</span></td>
+                <td><span class="badge fail">Not eligible</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>Certifications</h2>
+        <ul class="cert-list">
+          <li>
+            <strong>AWS Certified Cloud Practitioner</strong>
+            <span class="badge progress">In progress</span>
+          </li>
+          <li>
+            <strong>AWS Certified Solutions Architect — Associate</strong>
+            <span class="badge pending">Planned</span>
+          </li>
+          <li>
+            <strong>HashiCorp Terraform Associate</strong>
+            <span class="badge pending">Planned</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>Projects</h2>
+        <ul class="project-list">
+          <li>
+            <h3>Sponsorship Tracker <span class="badge yes">Live</span></h3>
+            <p>This site. S3 + CloudFront (OAC) + Route 53 + ACM + Lambda + API Gateway + DynamoDB + GitHub Actions (OIDC).</p>
+            <p class="links">
+              <a href="https://github.com/sabbirsavvy/cloud-portfolio" target="_blank" rel="noopener">GitHub</a>
+            </p>
+          </li>
+          <li>
+            <h3>Sponsorship API <span class="badge pending">Next</span></h3>
+            <p>A public API for the UK Sponsor Licence Register — scheduled Lambda ingestion, DynamoDB storage, searchable frontend.</p>
+          </li>
+        </ul>
+      </section>
+
+      <footer>
+        <p class="counter-line">
+          Visitors: <span id="visitor-count" class="accent mono">…</span>
+        </p>
+        <p class="muted small">
+          Built on AWS — S3, CloudFront, Route 53, ACM, Lambda, API Gateway, DynamoDB.
+          Deployed via GitHub Actions with OIDC federation.
+        </p>
+      </footer>
+
+    </main>
 
     <script>
-  fetch('https://730gg9guw8.execute-api.eu-west-2.amazonaws.com/visit')
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('visitor-count').textContent = data.count;
-    })
-    .catch(error => {
-      document.getElementById('visitor-count').textContent = '—';
-      console.error('Counter failed:', error);
-    });
-</script>
-</body>  
+      // Visitor counter — animates the count-up so it feels alive
+      fetch('https://730gg9guw8.execute-api.eu-west-2.amazonaws.com/visit')
+        .then(response => response.json())
+        .then(data => {
+          const target = data.count;
+          const el = document.getElementById('visitor-count');
+          const duration = 800; // ms
+          const start = performance.now();
+          const animate = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic for a nicer feel
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(eased * target).toLocaleString();
+            if (progress < 1) requestAnimationFrame(animate);
+            else el.textContent = target.toLocaleString();
+          };
+          requestAnimationFrame(animate);
+        })
+        .catch(error => {
+          document.getElementById('visitor-count').textContent = '—';
+          console.error('Counter failed:', error);
+        });
+    </script>
+  </body>
 </html>
